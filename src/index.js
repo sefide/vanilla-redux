@@ -1,49 +1,43 @@
 import { createStore } from "redux";
 
-// store - date를 저장하는 곳
-// state - application에서 변화하는 data, 아래 코드에서는 count 
-const plus = document.getElementById("plus");
-const minus = document.getElementById("minus");
-const number = document.getElementById("number");
+const ADD_TODO = "ADD_TODO";
+const DELETE_TODO = "DELETE_TODO";
 
-const PLUS = "PLUS";
-const MINUS = "MINUS";
+// NEVER MUTATE STATE !!
+const reducer = (state = [], action) => {
+    console.log(action);
+    switch(action.type) {
+        case ADD_TODO:
+            // return state.push(action.text); // mutating
+            return [...state, { text: action.text , id : Date.now()}]; // spread operator
+        case DELETE_TODO:
+            return [];
+        default:
+            return state;
+    }
+}
 
-// reducer는 data를 변화시키고 반환하는 function
-// action은 object여야 함
-const countModifier = (count = 0, action) => {
-  // modify state... 
-  // console.log(count, action);
-  switch (action.type) {
-    case PLUS:
-      return count + 1;
-    case MINUS:
-      return count - 1;
-    default:
-      return count;
-  }
+const store = createStore(reducer);
+
+store.subscribe(() => console.log(store.getState()));
+
+const form = document.querySelector("form");
+const input = document.querySelector("input");
+const ul = document.querySelector("ul");
+
+// vanilla
+const createToDo = toDo => {
+    const li = document.createElement("li");
+    li.innerText = toDo;
+    ul.appendChild(li);
+}
+
+const onSubmit = e => {
+    e.preventDefault();
+    const toDo = input.value;
+    input.value = "";
+    store.dispatch({ type: ADD_TODO , text: toDo });
+    // createToDo(toDo);
 };
 
-const countStore = createStore(countModifier);
-
-const onChange = () => {
-  // console.log("there was a chnage on the store");
-  // console.log(countStore.getState());
-  number.innerText = countStore.getState();
-}
-countStore.subscribe(onChange);
-
-plus.addEventListener("click", () => countStore.dispatch({type : PLUS}));
-minus.addEventListener("click", () => countStore.dispatch({type : MINUS}));
-
-// store.dispatch(action) 시, redux가 reducer를 call 
-// countStore.dispatch({type : "PLUS"});
-// countStore.dispatch({type : "PLUS"});
-// countStore.dispatch({type : "PLUS"});
-// countStore.dispatch({type : "MINUS"});
-
-// console.log(countStore);
-// => dispatch, subscribe, getState, replaceReducer 등의 function이 있다.
-
-console.log(countStore.getState());
-// => state 데이터 (count)
+form.addEventListener("submit", onSubmit);
