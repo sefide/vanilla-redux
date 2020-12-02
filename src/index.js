@@ -6,26 +6,41 @@ const plus = document.getElementById("plus");
 const minus = document.getElementById("minus");
 const number = document.getElementById("number");
 
+const PLUS = "PLUS";
+const MINUS = "MINUS";
+
 // reducer는 data를 변화시키고 반환하는 function
 // action은 object여야 함
 const countModifier = (count = 0, action) => {
   // modify state... 
-  if (action.type === "PLUS") {
-    return count + 1;
-  } else if (action.type === "MINUS") {
-    return count - 1;
-  } else {
-    return count;
+  // console.log(count, action);
+  switch (action.type) {
+    case PLUS:
+      return count + 1;
+    case MINUS:
+      return count - 1;
+    default:
+      return count;
   }
 };
 
 const countStore = createStore(countModifier);
 
+const onChange = () => {
+  // console.log("there was a chnage on the store");
+  // console.log(countStore.getState());
+  number.innerText = countStore.getState();
+}
+countStore.subscribe(onChange);
+
+plus.addEventListener("click", () => countStore.dispatch({type : PLUS}));
+minus.addEventListener("click", () => countStore.dispatch({type : MINUS}));
+
 // store.dispatch(action) 시, redux가 reducer를 call 
-countStore.dispatch({type : "PLUS"});
-countStore.dispatch({type : "PLUS"});
-countStore.dispatch({type : "PLUS"});
-countStore.dispatch({type : "MINUS"});
+// countStore.dispatch({type : "PLUS"});
+// countStore.dispatch({type : "PLUS"});
+// countStore.dispatch({type : "PLUS"});
+// countStore.dispatch({type : "MINUS"});
 
 // console.log(countStore);
 // => dispatch, subscribe, getState, replaceReducer 등의 function이 있다.
