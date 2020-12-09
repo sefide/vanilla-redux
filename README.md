@@ -57,10 +57,10 @@ subscribe는 첫번째 인자로 state가 변경되었을 때 수행시킬 함�
 #### connect
 component에 store를 연결
 connect는 2개의 arguments를 가진다. => state, dispatch
-store에서 원하는것에 따라 두 argument중 하나를 선택하면 된다. 
+store에서 원하는 것에 따라 두 argument중 하나를 선택하면 된다. 
 
-state : getState()와 같이 stage 정보를 알고 싶다면 사용한다. component에 props를 추가할 수도 있다. <br>
-store 혹은 reducer에게 메세지를(action?) 전달하고 싶다면 dispatch 메소드를... <br>
+*state* : getState()와 같이 stage 정보를 알고 싶다면 사용한다. component에 props를 추가할 수도 있다.  <br>
+=> 
 
 ```jsx
 function mapStateToProps(state, ownProps?)
@@ -69,6 +69,13 @@ redux state로부터 받은 데이터를 해당 컴포넌트의 props로 전달�
 
 state : redux store로부터 받은 state
 ownProps : component의 props
+
+*dispatch*
+store 혹은 reducer에게 메세지를(action?) 전달하고 싶다면 dispatch 메소드를... <br>
+=> 
+```jsx
+function mapDispatchToProps(dispatch, ownProps?)
+```
 
 <br>
 
