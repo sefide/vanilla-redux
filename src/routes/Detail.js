@@ -10,6 +10,9 @@ function Detail({ toDo }) {
     return (
         <div>
             <h1>
+                {/* js - Optional Chaining
+                    https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Optional_chaining
+                 */}
                 {toDo?.text}
             </h1>
             <h5>
