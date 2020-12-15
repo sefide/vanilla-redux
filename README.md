@@ -97,3 +97,8 @@ function mapDispatchToProps(dispatch, ownProps?)
 state는 기본적으로 readOnly로 불변성을 지켜줘야 한다. <br>
 state 수정은 action을 통해서만 가능한데, 값 수정 시 데이터를 변경하여 mutating 하지 말자. <br>
 state 값이 배열인 경우, 배열 값을 변경하기 위해 push 같은 행위를 하지 말아야 한다. 변경하기 위해서는 이전의 값과 새로운 값이 더해진 새로운 배열을 생성해야 한다.
+
+
+### Redux Toolkit
+반복되는 리덕스 코드를 줄여줄 수 있도록 도와주는 도구
+https://redux-toolkit.js.org/
