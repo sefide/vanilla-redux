@@ -102,3 +102,12 @@ state 값이 배열인 경우, 배열 값을 변경하기 위해 push 같은 행
 ### Redux Toolkit
 반복되는 리덕스 코드를 줄여줄 수 있도록 도와주는 도구
 https://redux-toolkit.js.org/
+
+#### Redux Toolkit에서 state.push 가 가능한 이유
+redux를 사용할 때 state의 불변성을 지켜줘야한다. 이를 위해 state값이 변경될 때마다 새로운 state를 생성하여 갈아끼워주곤 했는데 .. <br/>
+하지만 toolkit을 사용하면서 state.push가 가능해졌다. 이건 불변성을 깨트리는게 아닌가 ?
+
+이것이 가능한 이유는 바로 toolkit이 state.push 하위에서 동작하기 때문이다. 
+createReducer내에서 push메소드 동작 시, 기존 state값을 변경하는 것처럼 보이지만 내부적으로는 변경하고자 하는 새로운 state값을 생성하여 갈아끼워 준다.
+이렇듯 state의 불변성 관리를 쉽게 할 수 있도록 도와주는 역할을 하는건 실제 immer라는 라이브러리 덕분인데 자세한건 아래를 참고하자.
+참고 : https://github.com/immerjs/immer
